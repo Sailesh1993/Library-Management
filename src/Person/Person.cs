@@ -1,21 +1,24 @@
+
 public abstract class Person
 {
-    private string _name; 
+    private string _name;
     private int _id;
 
-    public Person(string Name, int Id)
+    public string Name
     {
-        _name = Name;
-        _id = Id;
+        get { return _name; }
+        set { _name = value; }
     }
-    public string GetName()
+    public int Id
     {
-        return _name;
+        get { return _id; }
     }
-    public void SetName(string value)
+    public Person(string name, int id)
     {
-        _name = value;
+        _name = name;
+        _id = id;
     }
-  
 }
+
+
 
