@@ -1,27 +1,27 @@
-
-public class Novel : Book
+namespace LibraryManagement
 {
-    private string _genre;
-
-    public string Genre
+    public class Novel : Book
     {
-        get { return _genre; }
-        set { _genre = value; }
-    }
-    public Novel(string title, string author, string isbn, int publicationYear, string genre)
-        : base(title, author, isbn, publicationYear, true, false)
-    {
-        _genre = genre;
-    }
+        private string genre;
 
-    public override void PrintInfo()
-    {
-        Console.WriteLine($"Novel Title: {Title}");
-        Console.WriteLine($"Author: {Author}");
-        Console.WriteLine($"ISBN: {ISBN}");
-        Console.WriteLine($"Publication Year: {PublicationYear}");
-        Console.WriteLine($"Genre: {Genre}");
+        public string Genre
+        {
+            get { return genre; }
+            private set { genre = value; }
+        }
 
+        public Novel(string title, string author, string isbn, int publicationYear, bool canBorrow, bool canPrint, string genre)
+            : base(title, author, isbn, publicationYear, canBorrow, canPrint)
+        {
+            Genre = genre;
+        }
+
+        public override void PrintInfo()
+        {
+            base.PrintInfo();
+            Console.WriteLine($"Genre: {Genre}");
+        }
     }
 }
+
 

@@ -1,24 +1,13 @@
-
-public class Customer : Person
+namespace LibraryManagement
 {
-    public Customer(string name, int id)
-        : base(name, id)
+    public class Customer : Person
     {
-    }
+     public List<Book> BorrowedBooks { get; }
 
-    public void Borrow(Book book)
-    {
-        if (book.CanBorrow)
+        public Customer(string name, int id) : base(name, id)
         {
-            Console.WriteLine($"Customer {Name} is borrowing the book: {book.Title}");
+            BorrowedBooks = new List<Book>();
         }
-        else
-        {
-            Console.WriteLine($"Book {book.Title} cannot be borrowed");
-        }
-    }
-    public void Return(Book book)
-    {
-        Console.WriteLine($"Customer {Name} is returning the book: {book.Title}");
     }
 }
+

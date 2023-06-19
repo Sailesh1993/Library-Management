@@ -1,23 +1,26 @@
-
-public class Comic : Book
+namespace LibraryManagement
 {
-    private string _artist;
-    public string Artist
+    public class Comic : Book
     {
-        get { return _artist; }
-        set { _artist = value; }
-    }
-    public Comic(string title, string author, string isbn, int publicationYear, string artist)
-     : base(title, author, isbn, publicationYear, true, false)
-    {
-        _artist = artist;
-    }
+        private string artist;
 
-    public override void PrintInfo()
-    {
-        Console.WriteLine($"Comic Title: {Title}");
-        Console.WriteLine($"Author: {Author}");
-        Console.WriteLine($"ISBN: {ISBN}");
-        Console.WriteLine($"Publication Year: {PublicationYear}");
+        public string Artist
+        {
+            get { return artist; }
+            private set { artist = value; }
+        }
+
+        public Comic(string title, string author, string isbn, int publicationYear, bool canBorrow, bool canPrint, string artist)
+            : base(title, author, isbn, publicationYear, canBorrow, canPrint)
+        {
+            Artist = artist;
+        }
+
+        public override void PrintInfo()
+        {
+            base.PrintInfo();
+            Console.WriteLine($"Artist: {Artist}");
+        }
+
     }
 }

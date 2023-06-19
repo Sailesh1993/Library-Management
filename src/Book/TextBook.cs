@@ -1,39 +1,32 @@
-
-
-public class TextBook : Book
+namespace LibraryManagement
 {
-    private int _maxPrintPages;
-    public int MaxPrintPages
+    public class TextBook : Book, IPrintable
     {
-        get { return _maxPrintPages; }
-        set { _maxPrintPages = value; }
-    }
+        private int maxPrintPages;
 
-
-    public TextBook(string title, string author, string isbn, int publicationYear, int maxPrintPages)
-        : base(title, author, isbn, publicationYear, true, true)
-    {
-        _maxPrintPages = maxPrintPages;
-    }
-
-    public override void PrintInfo()
-    {
-        Console.WriteLine($"TextBook Title: {Title}");
-        Console.WriteLine($"Author: {Author}");
-        Console.WriteLine($"ISBN: {ISBN}");
-        Console.WriteLine($"Publication Year: {PublicationYear}");
-        Console.WriteLine($"MaxPrintPages: {MaxPrintPages}");
-    }
-    public void PrintPages(int startPage, int endPage)
-    {
-        if (endPage > MaxPrintPages)
+        public int MaxPrintPages
         {
-            Console.WriteLine("Invalid print page range.");
-            return;
+            get { return maxPrintPages; }
+            private set { maxPrintPages = value; }
         }
-        else
+
+        public TextBook(string title, string author, string isbn, int publicationYear, bool canBorrow, bool canPrint, int maxPrintPages)
+            : base(title, author, isbn, publicationYear, canBorrow, canPrint)
         {
-            Console.WriteLine($"Printing pages {startPage}-{endPage} of TextBook: {Title}");
+            MaxPrintPages = maxPrintPages;
         }
+
+        public void PrintPages(int startPage, int endPage)
+        {
+            if (endPage > MaxPrintPages)
+            {
+                Console.WriteLine("Cannot print the specified number of pages. Exceeds maximum print limit.");
+                return;
+            }
+
+            Console.WriteLine($"Printing pages {startPage}-{endPage} of the textbook '{Title}'.");
+        }
+
     }
 }
+

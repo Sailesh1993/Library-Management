@@ -1,58 +1,71 @@
-
-public abstract class Book
+namespace LibraryManagement
 {
-    private string _title;
-    private string _author;
-    private string _isbn;
-    private int _publicationYear;
-    private bool _canBorrow;
-    private bool _canPrint;
-
-    public string Title
+    public abstract class Book
     {
-        get { return _title; }
-        set { _title = value; }
-    }
+        private string title;
+        private string author;
+        private string isbn;
+        private int publicationYear;
+        private bool canBorrow;
+        private bool canPrint;
 
-    public string Author
-    {
-        get { return _author; }
-        set { _author = value; }
-    }
+        public string Title
+        {
+            get { return title; }
+            private set { title = value; }
+        }
 
-    public string ISBN
-    {
-        get { return _isbn; }
-    }
+        public string Author
+        {
+            get { return author; }
+            private set { author = value; }
+        }
 
-    public int PublicationYear
-    {
-        get { return _publicationYear; }
-        set { _publicationYear = value; }
-    }
+        public string ISBN
+        {
+            get { return isbn; }
+            private set { isbn = value; }
+        }
 
-    public bool CanBorrow
-    {
-        get { return _canBorrow; }
-        set { _canBorrow = value; }
-    }
+        public int PublicationYear
+        {
+            get { return publicationYear; }
+            private set { publicationYear = value; }
+        }
 
-    public bool CanPrint
-    {
-        get { return _canPrint; }
-        set { _canPrint = value; }
-    }
+        public bool CanBorrow
+        {
+            get { return canBorrow; }
+            private set { canBorrow = value; }
+        }
 
-    public Book(string title, string author, string isbn, int publicationYear, bool canBorrow, bool canPrint)
-    {
-        _title = title;
-        _author = author;
-        _isbn = isbn;
-        _publicationYear = publicationYear;
-        _canBorrow = canBorrow;
-        _canPrint = canPrint;
+        public bool CanPrint
+        {
+            get { return canPrint; }
+            private set { canPrint = value; }
+        }
+
+        public Book(string title, string author, string isbn, int publicationYear, bool canBorrow, bool canPrint)
+        {
+            Title = title;
+            Author = author;
+            ISBN = isbn;
+            PublicationYear = publicationYear;
+            CanBorrow = canBorrow;
+            CanPrint = canPrint;
+        }
+
+        public virtual void PrintInfo()
+        {
+            Console.WriteLine($"Title: {Title}");
+            Console.WriteLine($"Author: {Author}");
+            Console.WriteLine($"ISBN: {ISBN}");
+            Console.WriteLine($"Publication Year: {PublicationYear}");
+            Console.WriteLine($"Can Borrow: {CanBorrow}");
+            Console.WriteLine($"Can Print: {CanPrint}");
+        }
     }
-    public abstract void PrintInfo();
 }
+
 
 
