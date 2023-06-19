@@ -2,7 +2,7 @@ namespace LibraryManagement
 {
     public class Librarian : Person
     {
-        public Librarian(string name, int id) : base(name, id)
+        public Librarian(string name) : base(name)
         {
         }
 

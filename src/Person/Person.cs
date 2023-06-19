@@ -2,6 +2,7 @@ namespace LibraryManagement
 {
     public abstract class Person
     {
+        private static int nextId = 1;
         private string name;
         private int id;
 
@@ -17,10 +18,12 @@ namespace LibraryManagement
             set { id = value; }
         }
 
-        public Person(string name, int id)
+        public int Id { get; internal set; }
+
+        public Person(string name)
         {
             Name = name;
-            ID = id;
+            ID = nextId++;
         }
     }
 }

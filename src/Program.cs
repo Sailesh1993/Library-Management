@@ -14,8 +14,8 @@ namespace LibraryManagement
             Book book4 = new ResearchPaper("ResearchPaper 1", "Author 4", "ISBN004", 2023);
 
             // Create some persons
-            Person person1 = new Customer("Customer 1", 1);
-            Person person2 = new Librarian("Librarian 1", 2);
+            Person person1 = new Customer("Customer 1");
+            Person person2 = new Librarian("Librarian 1");
 
             // Add books and persons to the library
             library.AddBook(book1);
@@ -28,33 +28,154 @@ namespace LibraryManagement
             // Perform actions in the library
             Console.WriteLine("Performing actions in the library...\n");
 
-            // Librarian adds a book
-            Librarian librarian = (Librarian)person2;
-            librarian.AddBook(book1, library);
+            while (true)
+            {
+                Console.WriteLine("Choose an action:");
+                Console.WriteLine("1. Add book");
+                Console.WriteLine("2. Remove book");
+                Console.WriteLine("3. Borrow book");
+                Console.WriteLine("4. Return book");
+                Console.WriteLine("5. Edit person info");
+                Console.WriteLine("6. Print books");
+                Console.WriteLine("0. Exit");
 
-            // Customer borrows a book
-            Customer customer = (Customer)person1;
-            library.BorrowBook(book1, customer);
+                string choice = Console.ReadLine();
 
-            // Customer tries to borrow the same book again
-            library.BorrowBook(book1, customer);
+                switch (choice)
+                {
+                    case "1":
+                        Console.WriteLine("Enter book type (1. Comic, 2. Novel, 3. TextBook, 4. ResearchPaper):");
+                        string bookTypeChoice = Console.ReadLine();
+                        Console.WriteLine("Enter book title:");
+                        string title = Console.ReadLine();
+                        Console.WriteLine("Enter book author:");
+                        string author = Console.ReadLine();
+                        Console.WriteLine("Enter book ISBN:");
+                        string isbn = Console.ReadLine();
+                        Console.WriteLine("Enter publication year:");
+                        int publicationYear = Convert.ToInt32(Console.ReadLine());
 
-            // Customer borrows another book
-            library.BorrowBook(book2, customer);
+                        switch (bookTypeChoice)
+                        {
+                            case "1":
+                                Console.WriteLine("Enter artist:");
+                                string artist = Console.ReadLine();
+                                Book comic = new Comic(title, author, isbn, publicationYear, true, false, artist);
+                                library.AddBook(comic);
+                                Console.WriteLine($"Comic '{title}' added to the library.");
+                                break;
+                            case "2":
+                                Console.WriteLine("Enter genre:");
+                                string genre = Console.ReadLine();
+                                Book novel = new Novel(title, author, isbn, publicationYear, true, false, genre);
+                                library.AddBook(novel);
+                                Console.WriteLine($"Novel '{title}' added to the library.");
+                                break;
+                            case "3":
+                                Console.WriteLine("Enter maximum number of pages:");
+                                int maxPages = Convert.ToInt32(Console.ReadLine());
+                                Book textbook = new TextBook(title, author, isbn, publicationYear, true, true, maxPages);
+                                library.AddBook(textbook);
+                                Console.WriteLine($"TextBook '{title}' added to the library.");
+                                break;
+                            case "4":
+                                Book researchPaper = new ResearchPaper(title, author, isbn, publicationYear);
+                                library.AddBook(researchPaper);
+                                Console.WriteLine($"ResearchPaper '{title}' added to the library.");
+                                break;
+                            default:
+                                Console.WriteLine("Invalid book type choice.");
+                                break;
+                        }
+                        break;
+                    case "2":
+                        Console.WriteLine("Enter book title to remove:");
+                        string removeTitle = Console.ReadLine();
+                        Book removeBook = library.FindBookByTitle(removeTitle);
+                        if (removeBook != null)
+                        {
+                            library.RemoveBook(removeBook);
+                            Console.WriteLine($"Book '{removeTitle}' removed from the library.");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Book '{removeTitle}' not found in the library.");
+                        }
+                        break;
+                    case "3":
+                        Console.WriteLine("Enter book title to borrow:");
+                        string borrowTitle = Console.ReadLine();
+                        Book borrowBook = library.FindBookByTitle(borrowTitle);
+                        if (borrowBook != null)
+                        {
+                            if (borrowBook.CanBorrow)
+                            {
+                                Customer customer = (Customer)person1;
+                                library.BorrowBook(borrowBook, customer);
+                                Console.WriteLine($"Book '{borrowTitle}' borrowed by customer.");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Book '{borrowTitle}' cannot be borrowed.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Book '{borrowTitle}' not found in the library.");
+                        }
+                        break;
+                    case "4":
+                        Console.WriteLine("Enter book title to return:");
+                        string returnTitle = Console.ReadLine();
+                        Book returnBook = library.FindBookByTitle(returnTitle);
+                        if (returnBook != null)
+                        {
+                            if (returnBook.CanBorrow)
+                            {
+                                Customer customer = (Customer)person1;
+                                library.ReturnBook(returnBook, customer);
+                                Console.WriteLine($"Book '{returnTitle}' returned by customer.");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Book '{returnTitle}' cannot be returned.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Book '{returnTitle}' not found in the library.");
+                        }
+                        break;
+                    case "5":
+                        Console.WriteLine("Enter person ID to edit:");
+                        int personId = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter new person name:");
+                        string newName = Console.ReadLine();
+                        Person editPerson = library.FindPersonById(personId);
+                        if (editPerson != null)
+                        {
+                            Librarian librarian = (Librarian)person2;
+                            librarian.EditPersonInfo(editPerson, newName, library);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Person with ID {personId} not found.");
+                        }
+                        break;
+                    case "6":
+                        library.PrintBooks();
+                        break;
+                    case "0":
+                        Console.WriteLine("Exiting the program...");
+                        return;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        break;
+                }
 
-            // Customer returns a book
-            library.ReturnBook(book1, customer);
+                Console.WriteLine();
+            }
 
-            // Librarian removes a book
-            librarian.RemoveBook(book1, library);
-
-            // Librarian edits a person's info
-            librarian.EditPersonInfo(person1, "New Customer Name", library);
-
-            // Print all books in the library
-            library.PrintBooks();
-
-            Console.ReadLine();
         }
     }
 }

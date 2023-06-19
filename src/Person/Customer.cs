@@ -4,7 +4,7 @@ namespace LibraryManagement
     {
      public List<Book> BorrowedBooks { get; }
 
-        public Customer(string name, int id) : base(name, id)
+        public Customer(string name) : base(name)
         {
             BorrowedBooks = new List<Book>();
         }

@@ -1,6 +1,6 @@
 namespace LibraryManagement
 {
-        public class Library
+    public class Library
     {
         private List<Book> books;
         private List<Person> persons;
@@ -10,7 +10,14 @@ namespace LibraryManagement
             books = new List<Book>();
             persons = new List<Person>();
         }
-
+        public Person FindPersonById(int id)
+        {
+            return persons.FirstOrDefault(p => p.Id == id);
+        }
+        public Book FindBookByTitle(string title)
+        {
+            return books.FirstOrDefault(b => b.Title == title);
+        }
         public void AddBook(Book book)
         {
             books.Add(book);
